@@ -8,10 +8,15 @@ interface AuthState {
   logout: () => void;
 }
 
+const isLoggedIn =
+  typeof window !== "undefined" && sessionStorage.getItem("auth-storage")
+    ? JSON.parse(sessionStorage.getItem("auth-storage")!).isLoggedIn
+    : false;
+
 export const useAuthStore = create<AuthState>()(
   persist(
     (set) => ({
-      isLoggedIn: false,
+      isLoggedIn,
       username: null,
       login: (username: string) => set({ isLoggedIn: true, username }),
       logout: () => set({ isLoggedIn: false, username: null }),

@@ -1,16 +1,20 @@
 "use client";
 
 import { Card, Button, Typography, message, Layout, Empty } from "antd";
-import { PlusOutlined } from "@ant-design/icons";
+import { PlusOutlined, LogoutOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { TodoItem } from "./components/TodoItem";
 import { useTodoStore } from "../store/useTodoStore";
+import { useAuthStore } from "../store/useAuthStore";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
 
 const TodoPage: React.FC = () => {
+  const router = useRouter();
   const { todos, removeTodo, toggleTodo } = useTodoStore();
+  const logout = useAuthStore((state) => state.logout);
 
   const handleDelete = (id: string) => {
     removeTodo(id);
@@ -21,9 +25,20 @@ const TodoPage: React.FC = () => {
     toggleTodo(id);
   };
 
+  const handleLogout = () => {
+    logout();
+    message.success("已退出登录");
+    router.replace("/login");
+  };
+
   return (
     <div className="flex-1 flex flex-col">
-      <Content className="p-12 flex justify-center">
+      <Content className="p-12 flex flex-col items-center">
+        <div className="w-full max-w-2xl flex justify-end mb-4">
+          <Button onClick={handleLogout} icon={<LogoutOutlined />} danger>
+            退出登录
+          </Button>
+        </div>
         <div className="w-full max-w-2xl">
           <Card
             className="shadow-lg rounded-lg"
