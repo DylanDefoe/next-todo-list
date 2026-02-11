@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { AppProvider } from "./context/AppContext";
+import Footer from "./components/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +30,16 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <AntdRegistry>
+          <AppProvider author="NextDeveloper" email="dev@nextjs.com">
+            <div className="flex flex-col min-h-screen bg-[#f0f2f5]">
+              <main className="grow flex flex-col">
+                {children}
+              </main>
+              <Footer />
+            </div>
+          </AppProvider>
+        </AntdRegistry>
       </body>
     </html>
   );
