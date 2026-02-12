@@ -4,6 +4,7 @@ import "./globals.css";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { AppProvider } from "./context/AppContext";
 import Footer from "./components/Footer";
+import { ThemeSwitcherProvider } from "./components/ThemeSwitcherProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,19 +27,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AntdRegistry>
-          <AppProvider author="NextDeveloper" email="dev@nextjs.com">
-            <div className="flex flex-col min-h-screen bg-[#f0f2f5]">
-              <main className="grow flex flex-col">
-                {children}
-              </main>
-              <Footer />
-            </div>
-          </AppProvider>
+          <ThemeSwitcherProvider>
+            <AppProvider author="NextDeveloper" email="dev@nextjs.com">
+              <div className="flex flex-col min-h-screen bg-[#f0f2f5] dark:bg-gray-950 text-foreground">
+                <main className="grow flex flex-col">
+                  {children}
+                </main>
+                <Footer />
+              </div>
+            </AppProvider>
+          </ThemeSwitcherProvider>
         </AntdRegistry>
       </body>
     </html>

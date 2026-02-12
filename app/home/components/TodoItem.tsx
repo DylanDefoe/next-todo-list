@@ -17,7 +17,7 @@ export const TodoItem: React.FC<TodoItemProps> = ({
   onToggle,
 }) => {
   return (
-    <div className="flex items-center justify-between p-3 border-b border-gray-100 last:border-0 hover:bg-gray-50 transition-colors">
+    <div className="flex items-center justify-between p-3 border-b border-gray-100 dark:border-gray-800 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors">
       <Checkbox
         checked={item.completed}
         onChange={() => onToggle(item.id)}

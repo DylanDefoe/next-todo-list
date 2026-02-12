@@ -6,6 +6,7 @@ import { MailOutlined, UserOutlined } from "@ant-design/icons";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import { useAppContext } from "../context/AppContext";
+import { ThemeToggle } from "./ThemeToggle";
 
 const { Footer: AntFooter } = Layout;
 const { Text, Link } = Typography;
@@ -19,8 +20,11 @@ const Footer: React.FC = () => {
   }
 
   return (
-    <AntFooter style={{ textAlign: "center", backgroundColor: "#f0f2f5" }}>
+    <AntFooter style={{ textAlign: "center", background: 'transparent' }}>
       <div className="flex flex-col gap-2 items-center">
+        <div className="mb-2">
+           <ThemeToggle />
+        </div>
         <Text type="secondary" className="flex items-center">
           <UserOutlined className="mr-2" />
           Created by{" "}
