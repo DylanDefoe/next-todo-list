@@ -3,6 +3,7 @@
 import { Card, Button, Typography, message, Layout, Empty } from "antd";
 import { PlusOutlined, LogoutOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TodoItem } from "./components/TodoItem";
 import { useTodoStore } from "../store/useTodoStore";
@@ -13,8 +14,12 @@ const { Content } = Layout;
 
 const TodoPage: React.FC = () => {
   const router = useRouter();
-  const { todos, removeTodo, toggleTodo } = useTodoStore();
+  const { todos, removeTodo, toggleTodo, fetchTodos } = useTodoStore();
   const logout = useAuthStore((state) => state.logout);
+
+  useEffect(() => {
+    fetchTodos();
+  }, [fetchTodos]);
 
   const handleDelete = (id: string) => {
     removeTodo(id);

@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 
 export interface TodoData {
   id: string;
@@ -9,6 +9,7 @@ export interface TodoData {
 
 interface TodoState {
   todos: TodoData[];
+  fetchTodos: () => Promise<void>;
   addTodo: (content: string) => void;
   removeTodo: (id: string) => void;
   toggleTodo: (id: string) => void;
@@ -16,8 +17,22 @@ interface TodoState {
 
 export const useTodoStore = create<TodoState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       todos: [],
+      fetchTodos: async () => {
+        try {
+          if (get().todos?.length > 0) {
+            return;
+          }
+          const response = await fetch("/api/todos");
+          if (response.ok) {
+            const data = await response.json();
+            set({ todos: data });
+          }
+        } catch (error) {
+          console.error("Error fetching todos:", error);
+        }
+      },
       addTodo: (content: string) =>
         set((state) => ({
           todos: [
@@ -36,14 +51,13 @@ export const useTodoStore = create<TodoState>()(
       toggleTodo: (id: string) =>
         set((state) => ({
           todos: state.todos.map((todo) =>
-            todo.id === id ? { ...todo, completed: !todo.completed } : todo
+            todo.id === id ? { ...todo, completed: !todo.completed } : todo,
           ),
         })),
     }),
     {
-      name: 'todo-list-storage',
-      storage: createJSONStorage(() => localStorage), 
-      // 可以在这里处理 hydration 相关的逻辑，但最简单的方式是在组件层处理显示
-    }
-  )
+      name: "todo-list-storage",
+      storage: createJSONStorage(() => localStorage),
+    },
+  ),
 );
