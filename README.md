@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Next.js Todo List
 
-## Getting Started
+这是一个基于 Next.js 16、TypeScript 和 Ant Design 构建的现代待办事项（Todo List）应用。使用了 Zustand 进行全局状态管理，并结合 Tailwind CSS 进行样式开发。
 
-First, run the development server:
+## ✨ 特性
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **技术栈**: Next.js 16 (App Router), React 19, TypeScript
+- **状态管理**: 使用 [Zustand](https://github.com/pmndrs/zustand) 管理全局状态 (Todo & Auth)。
+- **UI 组件库**: 集成 [Ant Design](https://ant.design/) (v6) 提供优雅的组件支持。
+- **样式**: 使用 Tailwind CSS v4 进行原子化样式开发。
+- **数据持久化**:
+  - Todo 数据自动持久化至 `localStorage`，刷新不丢失。
+  - 用户登录状态持久化至 `sessionStorage`。
+- **功能模块**:
+  - **用户认证**: 简单的登录/注销流程与路由守卫 (`AuthGuard`)。
+  - **待办管理**: 待办事项的添加、列表展示、状态切换与删除。
+  - **关于页面**: 简单的关于信息展示。
+
+## 🛠️ 目录结构
+
+```
+.
+├── app/
+│   ├── about/          # 关于页面
+│   ├── components/     # 全局共享组件 (如 Footer, AuthGuard)
+│   ├── context/        # React Context (如 AppContext)
+│   ├── home/           # 主应用区域 (需登录访问)
+│   │   ├── add/        # 添加待办事项页面
+│   │   ├── components/ # 首页特定组件 (如 TodoItem)
+│   │   └── page.tsx    # 待办列表主页
+│   ├── hooks/          # 自定义 Hooks
+│   ├── login/          # 登录页面
+│   ├── store/          # Zustand Store 定义 (useAuthStore, useTodoStore)
+│   ├── globals.css     # 全局样式 (Tailwind imports)
+│   ├── layout.tsx      # 根布局
+│   └── page.tsx        # 落地页
+├── public/             # 静态资源
+├── package.json
+└── tsconfig.json
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 快速开始
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 1. 安装依赖
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+本项目推荐使用 `pnpm` 作为包管理器。
 
-## Learn More
+```bash
+pnpm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+### 2. 启动开发服务器
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+pnpm dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+打开浏览器访问 [http://localhost:3000](http://localhost:3000) 查看结果。
 
-## Deploy on Vercel
+### 3. 构建生产版本
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+pnpm build
+pnpm start
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 📦 状态管理 (Zustand)
+
+### Todo Store (`useTodoStore`)
+负责管理待办事项数据。
+- **State**: `todos` (列表)
+- **Actions**: `addTodo`, `removeTodo`, `toggleTodo`, `fetchTodos`
+- **Persistence**: 使用 `localStorage` 进行持久化存储。
+
+### Auth Store (`useAuthStore`)
+负责管理用户登录状态。
+- **State**: `isLoggedIn`, `username`
+- **Actions**: `login`, `logout`
+- **Persistence**: 使用 `sessionStorage`，关闭浏览器窗口后会话失效。
+
+## 🎨 样式方案
+
+本项目混合使用了 **Ant Design** 组件与 **Tailwind CSS** 工具类。
+- **Ant Design**: 用于快速构建复杂的交互组件（如表单 Input, Button, List）。
+- **Tailwind CSS**: 用于灵活的布局排版、间距调整和自定义样式覆盖。
+
+## 🐳 Docker 部署
+
+本项目提供了标准的 `Dockerfile`，支持多阶段构建以优化镜像体积。
+
+### 1. 构建镜像
+
+在项目根目录下运行以下命令构建 Docker 镜像：
+
+```bash
+docker build -t next-todo-list .
+```
+
+### 2. 运行容器
+
+构建完成后，启动容器并将容器内部的 3000 端口映射到主机的 3000 端口：
+
+```bash
+docker run -p 3000:3000 next-todo-list
+```
+
+### 3. 访问应用
+
+容器启动后，在浏览器中访问：
+
+[http://localhost:3000](http://localhost:3000)
+
+---
+
+*Generated for Next.js Todo List Project*
