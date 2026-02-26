@@ -1,0 +1,22 @@
+services:
+  next-todo-list:
+    container_name: next-todo-list-container
+    image: next-todo-list-image
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        API_URL: http://bun-todo-container:5000
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - HOSTNAME=0.0.0.0
+    networks:
+      - todo-network
+
+networks:
+  todo-network:
+    external: true 
