@@ -20,7 +20,7 @@ const Footer: React.FC = () => {
   }
 
   return (
-    <AntFooter style={{ textAlign: "center", background: 'transparent' }}>
+    <AntFooter>
       <div className="flex flex-col gap-2 items-center">
         <div className="mb-2">
            <ThemeToggle />
@@ -32,7 +32,7 @@ const Footer: React.FC = () => {
             href="/about"
             className="hover:text-blue-500 transition-colors"
           >
-            <Text strong style={{ cursor: "pointer" }}>
+            <Text strong className="cursor-pointer">
               {author}
             </Text>
           </NextLink>
@@ -41,7 +41,7 @@ const Footer: React.FC = () => {
           <MailOutlined className="mr-2" />
           Contact: <Link href={`mailto:${email}`}>{email}</Link>
         </Text>
-        <Text type="secondary" style={{ fontSize: "12px" }}>
+        <Text type="secondary" className="text-[12px]!">
           © {new Date().getFullYear()} Next Todo List. All Rights Reserved.
         </Text>
       </div>

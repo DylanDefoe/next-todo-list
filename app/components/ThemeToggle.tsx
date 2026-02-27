@@ -15,7 +15,7 @@ export function ThemeToggle() {
 
   if (!mounted) {
     // 渲染占位符以防止布局跳动，或者返回 null
-    return <div style={{ width: 130, height: 32 }} />;
+    return <div className="w-[130px] h-[32px]" />;
   }
 
   return (
@@ -27,7 +27,7 @@ export function ThemeToggle() {
         { value: 'dark', label: <span className="flex items-center gap-2"><MoonOutlined /> 暗色</span> },
         { value: 'system', label: <span className="flex items-center gap-2"><DesktopOutlined /> 系统</span> },
       ]}
-      style={{ width: 130 }}
+      className="w-[130px]"
       aria-label="切换主题"
     />
   );
