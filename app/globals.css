@@ -5,6 +5,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-color: #101848;
+  --divider: #E5E5E5;
+  --muted: #AAAFCF;
+  --btn-done-bg: #E7E9F4;
 }
 
 @theme inline {
@@ -12,6 +16,10 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-font-color: var(--font-color);
+  --color-divider: var(--divider);
+  --color-muted: var(--muted);
+  --color-btn-done-bg: var(--btn-done-bg);
 }
 
 @media (prefers-color-scheme: dark) {
