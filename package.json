@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "format": "prettier --write ./app/**/*.{ts,tsx}"
   },
   "dependencies": {
     "@ant-design/icons": "^6.1.0",
@@ -27,6 +28,8 @@
     "eslint-config-next": "16.1.6",
     "postcss-px-to-viewport-8-plugin": "^1.2.5",
     "postcss-rem-to-viewport": "^2.0.1",
+    "prettier": "^3.8.1",
+    "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

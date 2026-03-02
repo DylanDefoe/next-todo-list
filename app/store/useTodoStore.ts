@@ -1,18 +1,18 @@
-import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { create } from 'zustand'
+import { persist, createJSONStorage } from 'zustand/middleware'
 
 export interface TodoData {
-  id: string;
-  content: string;
-  completed: boolean;
+  id: string
+  content: string
+  completed: boolean
 }
 
 interface TodoState {
-  todos: TodoData[];
-  fetchTodos: () => Promise<void>;
-  addTodo: (content: string) => void;
-  removeTodo: (id: string) => void;
-  toggleTodo: (id: string) => void;
+  todos: TodoData[]
+  fetchTodos: () => Promise<void>
+  addTodo: (content: string) => void
+  removeTodo: (id: string) => void
+  toggleTodo: (id: string) => void
 }
 
 export const useTodoStore = create<TodoState>()(
@@ -22,15 +22,15 @@ export const useTodoStore = create<TodoState>()(
       fetchTodos: async () => {
         try {
           if (get().todos?.length > 0) {
-            return;
+            return
           }
-          const response = await fetch("/api/todos");
+          const response = await fetch('/api/todos')
           if (response.ok) {
-            const data = await response.json();
-            set({ todos: data });
+            const data = await response.json()
+            set({ todos: data })
           }
         } catch (error) {
-          console.error("Error fetching todos:", error);
+          console.error('Error fetching todos:', error)
         }
       },
       addTodo: (content: string) =>
@@ -56,8 +56,8 @@ export const useTodoStore = create<TodoState>()(
         })),
     }),
     {
-      name: "todo-list-storage",
+      name: 'todo-list-storage',
       storage: createJSONStorage(() => localStorage),
     },
   ),
-);
+)

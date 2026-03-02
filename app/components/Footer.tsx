@@ -1,36 +1,36 @@
-"use client";
+'use client'
 
-import React from "react";
-import { Layout, Typography } from "antd";
-import { MailOutlined, UserOutlined } from "@ant-design/icons";
-import NextLink from "next/link";
-import { usePathname } from "next/navigation";
-import { useAppContext } from "../context/AppContext";
-import { ThemeToggle } from "./ThemeToggle";
+import React from 'react'
+import { Layout, Typography } from 'antd'
+import { MailOutlined, UserOutlined } from '@ant-design/icons'
+import NextLink from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useAppContext } from '../context/AppContext'
+import { ThemeToggle } from './ThemeToggle'
 
-const { Footer: AntFooter } = Layout;
-const { Text, Link } = Typography;
+const { Footer: AntFooter } = Layout
+const { Text, Link } = Typography
 
 const Footer: React.FC = () => {
-  const pathname = usePathname();
-  const { author, email } = useAppContext();
+  const pathname = usePathname()
+  const { author, email } = useAppContext()
 
-  if (pathname === "/about") {
-    return null;
+  if (pathname === '/about') {
+    return null
   }
 
   return (
     <AntFooter>
-      <div className="flex flex-col gap-2 items-center">
+      <div className="flex flex-col items-center gap-2">
         <div className="mb-2">
-           <ThemeToggle />
+          <ThemeToggle />
         </div>
         <Text type="secondary" className="flex items-center">
           <UserOutlined className="mr-2" />
-          Created by{" "}
+          Created by{' '}
           <NextLink
             href="/about"
-            className="hover:text-blue-500 transition-colors"
+            className="transition-colors hover:text-blue-500"
           >
             <Text strong className="cursor-pointer">
               {author}
@@ -46,7 +46,7 @@ const Footer: React.FC = () => {
         </Text>
       </div>
     </AntFooter>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

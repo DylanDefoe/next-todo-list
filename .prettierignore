@@ -1,0 +1,15 @@
+# 依赖
+node_modules
+
+# 构建产物
+.next
+dist
+build
+out
+
+# 自动生成的文件
+package-lock.json
+pnpm-lock.yaml
+
+# 其他
+.env*

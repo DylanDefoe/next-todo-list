@@ -1,54 +1,54 @@
-"use client";
+'use client'
 
-import { Card, Button, Typography, message, Layout, Empty } from "antd";
-import { PlusOutlined, LogoutOutlined } from "@ant-design/icons";
-import Link from "next/link";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { TodoItem } from "./components/TodoItem";
-import { useTodoStore } from "../store/useTodoStore";
-import { useAuthStore } from "../store/useAuthStore";
+import { Card, Button, Typography, message, Layout, Empty } from 'antd'
+import { PlusOutlined, LogoutOutlined } from '@ant-design/icons'
+import Link from 'next/link'
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
+import { TodoItem } from './components/TodoItem'
+import { useTodoStore } from '../store/useTodoStore'
+import { useAuthStore } from '../store/useAuthStore'
 
-const { Title, Text } = Typography;
-const { Content } = Layout;
+const { Title, Text } = Typography
+const { Content } = Layout
 
 const TodoPage: React.FC = () => {
-  const router = useRouter();
-  const { todos, removeTodo, toggleTodo, fetchTodos } = useTodoStore();
-  const logout = useAuthStore((state) => state.logout);
+  const router = useRouter()
+  const { todos, removeTodo, toggleTodo, fetchTodos } = useTodoStore()
+  const logout = useAuthStore((state) => state.logout)
 
   useEffect(() => {
-    fetchTodos();
-  }, [fetchTodos]);
+    fetchTodos()
+  }, [fetchTodos])
 
   const handleDelete = (id: string) => {
-    removeTodo(id);
-    message.success("删除成功");
-  };
+    removeTodo(id)
+    message.success('删除成功')
+  }
 
   const handleToggle = (id: string) => {
-    toggleTodo(id);
-  };
+    toggleTodo(id)
+  }
 
   const handleLogout = () => {
-    logout();
-    message.success("已退出登录");
-    router.replace("/login");
-  };
+    logout()
+    message.success('已退出登录')
+    router.replace('/login')
+  }
 
   return (
-    <div className="flex-1 flex flex-col">
-      <Content className="p-12 flex flex-col items-center">
-        <div className="w-full max-w-2xl flex justify-end mb-4">
+    <div className="flex flex-1 flex-col">
+      <Content className="flex flex-col items-center p-12">
+        <div className="mb-4 flex w-full max-w-2xl justify-end">
           <Button onClick={handleLogout} icon={<LogoutOutlined />} danger>
             退出登录
           </Button>
         </div>
         <div className="w-full max-w-2xl">
           <Card
-            className="shadow-lg rounded-lg"
+            className="rounded-lg shadow-lg"
             title={
-              <div className="flex justify-between items-center">
+              <div className="flex items-center justify-between">
                 <Title level={3} className="m-0!">
                   待办事项清单
                 </Title>
@@ -81,7 +81,7 @@ const TodoPage: React.FC = () => {
         </div>
       </Content>
     </div>
-  );
-};
+  )
+}
 
-export default TodoPage;
+export default TodoPage

@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import { ThemeProvider as NextThemesProvider, useTheme } from "next-themes";
-import { ConfigProvider, theme as antTheme } from "antd";
-import { useEffect, useState, ReactNode } from "react";
+import { ThemeProvider as NextThemesProvider, useTheme } from 'next-themes'
+import { ConfigProvider, theme as antTheme } from 'antd'
+import { useEffect, useState, ReactNode } from 'react'
 
 // 内部组件：负责连接 next-themes 的状态到 Ant Design 的 ConfigProvider
 const AntdConfigBridge = ({ children }: { children: ReactNode }) => {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
+  const { resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    setMounted(true)
+  }, [])
 
   // 在客户端挂载之前，渲染默认状态，防止 Hydration Mismatch
   // 或者可以返回一个 null，或者默认的 ConfigProvider
   if (!mounted) {
-    return <>{children}</>;
+    return <>{children}</>
   }
 
-  const isDark = resolvedTheme === "dark";
+  const isDark = resolvedTheme === 'dark'
 
   return (
     <ConfigProvider
@@ -29,13 +29,13 @@ const AntdConfigBridge = ({ children }: { children: ReactNode }) => {
     >
       {children}
     </ConfigProvider>
-  );
-};
+  )
+}
 
 export function ThemeSwitcherProvider({ children }: { children: ReactNode }) {
   return (
     <NextThemesProvider attribute="class" defaultTheme="light" enableSystem>
       <AntdConfigBridge>{children}</AntdConfigBridge>
     </NextThemesProvider>
-  );
+  )
 }
