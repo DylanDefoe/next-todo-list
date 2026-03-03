@@ -1,14 +1,28 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @variant dark (&:where(.dark, .dark *));
+
+/**
+ * 移动端 vw 适配核心：
+ * 将 html 根字体设为 vw，使所有 rem 单位随视口宽度缩放。
+ * Tailwind v4 的工具类（如 mt-5）内部计算基于 --spacing: 0.25rem，
+ * rem 跟随此设置自动换算为 vw，无需 PostCSS 插件转换。
+ * 公式：font-size = 16px / 375px * 100 = 4.26667vw
+ */
+html {
+  /* 设计稿宽度 */
+  --viewport-width: 375;
+  /* 转换vw */
+  font-size: calc(100vw / var(--viewport-width) * 16);
+}
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
   --font-color: #101848;
-  --divider: #E5E5E5;
-  --muted: #AAAFCF;
-  --btn-done-bg: #E7E9F4;
+  --divider: #e5e5e5;
+  --muted: #aaafcf;
+  --btn-done-bg: #e7e9f4;
 }
 
 @theme inline {
