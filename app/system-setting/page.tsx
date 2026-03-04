@@ -31,7 +31,7 @@ function SettingItemRow({ title, desc, status }: SettingItem) {
   return (
     <div className="border-divider flex items-center justify-between gap-7.5 border-b py-7.5 pr-7.5">
       <div className="min-w-0 flex-1">
-        <p className="text-font-color text-[1.0625rem]">{title}</p>
+        <p className="text-font-color text-[1.0625rem] font-bold">{title}</p>
         <p className="text-muted mt-3 text-xs leading-4.25">{desc}</p>
       </div>
       <Button
